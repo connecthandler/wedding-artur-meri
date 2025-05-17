@@ -1,121 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>You're Invited!</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Artur & Meri's Wedding</title>
   <style>
     body {
-      font-family: 'Open Sans', sans-serif;
-      background: #fdf6f0;
-      color: #333;
       margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    header {
-      text-align: center;
-      padding: 2rem;
-    }
-    h1 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-    }
-    .details {
-      font-size: 1.2rem;
-    }
-    form {
-      background: #fff;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      width: 90%;
-      max-width: 500px;
-      margin-bottom: 2rem;
-    }
-    label {
-      display: block;
-      margin-top: 1rem;
-    }
-    input[type="text"], select {
-      width: 100%;
-      padding: 0.5rem;
-      margin-top: 0.3rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    .radio-group {
-      margin-top: 1rem;
-    }
-    .radio-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-    button {
-      margin-top: 1.5rem;
-      padding: 0.7rem 1.2rem;
-      background: #d1a77b;
+      font-family: 'Georgia', serif;
+      background: url('https://images.unsplash.com/photo-1525393839361-867d8ffba3a8?fit=crop&w=1400&q=80') no-repeat center center fixed;
+      background-size: cover;
       color: #fff;
-      border: none;
-      border-radius: 5px;
-      font-size: 1rem;
-      cursor: pointer;
+      text-align: center;
     }
-    .music-toggle {
-      margin-bottom: 1.5rem;
+
+    .overlay {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    .invitation-photo {
+      background: url('https://images.unsplash.com/photo-1521165944393-d125bdf27b9a?fit=crop&w=800&q=80') no-repeat center center;
+      background-size: cover;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      height: 400px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .invitation-text {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 1rem;
+      font-size: 1.2rem;
+      width: 100%;
+      border-radius: 0 0 1rem 1rem;
+    }
+
+    iframe {
+      width: 100%;
+      max-width: 640px;
+      height: 800px;
+      border: none;
+      border-radius: 1rem;
+      margin-top: 2rem;
+    }
+
+    .music-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.7);
+      border: none;
+      border-radius: 50%;
+      padding: 10px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .music-button img {
+      width: 24px;
+      height: 24px;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>You're Invited!</h1>
-    <div class="details">
-      <p>Join us to celebrate our wedding on <strong>August 30, 2025</strong></p>
-      <p>at <strong>Rosewood Garden, Florence, Italy</strong></p>
-      <p>We can't wait to share this special day with you 💕</p>
-    </div>
-  </header>
+  <div class="overlay">
+    <button class="music-button" onclick="toggleMusic()" title="Toggle music">
+      <img id="music-icon" src="https://img.icons8.com/ios-filled/50/000000/speaker.png" alt="Music Toggle">
+    </button>
 
-  <div class="music-toggle">
-    <label><input type="checkbox" id="musicToggle" checked /> Play Background Music</label>
+    <div class="invitation-photo">
+      <div class="invitation-text">
+        <h2>Artur & Meri's Wedding</h2>
+        <p>Join us in celebrating our special day!<br>
+        12 July 2025, Grand Palace Hall, Yerevan</p>
+      </div>
+    </div>
+
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfGov65ffdPKcmZd5FukhGCtTAdqMQuQUTBaUDuKcjKhCa0ZA/viewform?embedded=true">Loading…</iframe>
   </div>
 
-  <form action="https://formspree.io/f/your-form-id" method="POST">
-    <label for="name">Full Name</label>
-    <input type="text" name="name" id="name" required />
-
-    <div class="radio-group">
-      <label><input type="radio" name="attendance" value="I'll attend" required /> I'll attend</label>
-      <label><input type="radio" name="attendance" value="Unfortunately I won't attend" /> Unfortunately I won't attend</label>
-      <label><input type="radio" name="attendance" value="I'll attend as a couple" /> I'll attend as a couple</label>
-    </div>
-
-    <button type="submit">Submit RSVP</button>
-  </form>
-
-  <audio id="backgroundMusic" loop autoplay>
-    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+  <audio id="wedding-music" loop autoplay>
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
   <script>
-    const music = document.getElementById('backgroundMusic');
-    const toggle = document.getElementById('musicToggle');
+    const audio = document.getElementById('wedding-music');
+    const icon = document.getElementById('music-icon');
 
-    toggle.addEventListener('change', () => {
-      if (toggle.checked) {
-        music.play();
+    function toggleMusic() {
+      if (audio.paused) {
+        audio.play();
+        icon.src = "https://img.icons8.com/ios-filled/50/000000/speaker.png";
       } else {
-        music.pause();
+        audio.pause();
+        icon.src = "https://img.icons8.com/ios-filled/50/000000/mute.png";
       }
-    });
+    }
   </script>
 </body>
 </html>
-
-
-
