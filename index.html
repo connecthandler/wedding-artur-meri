@@ -1,77 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Artur & Meri's Wedding</title>
-  <style>
-    body {
-      font-family: 'Georgia', serif;
-      background: url('https://images.unsplash.com/photo-1525393839361-867d8ffba3a8?fit=crop&w=1400&q=80') no-repeat center center fixed;
-      background-size: cover;
-      color: #fff;
-      text-align: center;
-      padding: 2rem;
-    }
-
-    .form-container {
-      background: rgba(0,0,0,0.6);
-      padding: 2rem;
-      max-width: 500px;
-      margin: 2rem auto;
-      border-radius: 1rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    }
-
-    label {
-      display: block;
-      margin: 1rem 0 0.5rem;
-      font-size: 1.1rem;
-    }
-
-    input, select, button {
-      width: 100%;
-      padding: 0.75rem;
-      border-radius: 0.5rem;
-      border: none;
-      font-size: 1rem;
-    }
-
-    button {
-      margin-top: 1rem;
-      background-color: #ffcccc;
-      cursor: pointer;
-    }
-
-    .success-message {
-      margin-top: 1rem;
-      font-size: 1.2rem;
-      color: #d4edda;
-    }
-  </style>
+  <title>RSVP</title>
 </head>
 <body>
-  <h1>You're Invited!</h1>
-  <p>We are excited to celebrate our special day with you.<br>
-     Please let us know if you will attend.</p>
 
-  <div class="form-container">
-    <form id="rsvp-form">
-      <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" required>
+  <!-- Your HTML form here -->
+  <form id="rsvp-form">
+    <!-- fields -->
+  </form>
 
-      <label for="attendance">Will you attend?</label>
-      <select id="attendance" name="attendance" required>
-        <option value="">Select an option</option>
-        <option value="I will attend">✅ I will attend</option>
-        <option value="I will not attend">❌ I will not attend</option>
-        <option value="I will attend with a partner">💑 I will attend with a partner</option>
-      </select>
-
-      <button type="submit">Send RSVP</button>
-      <div class="success-message" id="success-msg"></div>
-    </form>
-  </div>
-
+  <!-- ✅ JavaScript goes here -->
   <script>
     const form = document.getElementById('rsvp-form');
     const successMsg = document.getElementById('success-msg');
@@ -91,14 +30,20 @@
       })
       .then(response => response.json())
       .then(data => {
-        successMsg.textContent = "✅ Thank you! Your RSVP has been received.";
-        form.reset();
+        if (data.result === "Success") {
+          successMsg.textContent = "✅ Thank you! Your RSVP has been received.";
+          form.reset();
+        } else {
+          successMsg.textContent = "❌ Error: " + data.message;
+          console.error("Script error:", data.message);
+        }
       })
       .catch(error => {
-        successMsg.textContent = "❌ Something went wrong. Please try again later.";
+        successMsg.textContent = "❌ Network error. Please try again.";
         console.error(error);
       });
     });
   </script>
+
 </body>
 </html>
