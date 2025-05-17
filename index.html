@@ -5,103 +5,99 @@
   <title>Artur & Meri's Wedding</title>
   <style>
     body {
-      margin: 0;
       font-family: 'Georgia', serif;
       background: url('https://images.unsplash.com/photo-1525393839361-867d8ffba3a8?fit=crop&w=1400&q=80') no-repeat center center fixed;
       background-size: cover;
       color: #fff;
       text-align: center;
-    }
-
-    .overlay {
-      background: rgba(0, 0, 0, 0.5);
       padding: 2rem;
-      min-height: 100vh;
     }
 
-    .invitation-photo {
-      background: url('https://images.unsplash.com/photo-1521165944393-d125bdf27b9a?fit=crop&w=800&q=80') no-repeat center center;
-      background-size: cover;
-      max-width: 600px;
-      margin: 0 auto 2rem;
+    .form-container {
+      background: rgba(0,0,0,0.6);
+      padding: 2rem;
+      max-width: 500px;
+      margin: 2rem auto;
       border-radius: 1rem;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-      height: 400px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
 
-    .invitation-text {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 1rem;
-      font-size: 1.2rem;
+    label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    input, select, button {
       width: 100%;
-      border-radius: 0 0 1rem 1rem;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      border: none;
+      font-size: 1rem;
     }
 
-    iframe {
-      width: 100%;
-      max-width: 640px;
-      height: 800px;
-      border: none;
-      border-radius: 1rem;
-      margin-top: 2rem;
-    }
-
-    .music-button {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: rgba(255,255,255,0.7);
-      border: none;
-      border-radius: 50%;
-      padding: 10px;
+    button {
+      margin-top: 1rem;
+      background-color: #ffcccc;
       cursor: pointer;
-      z-index: 10;
     }
 
-    .music-button img {
-      width: 24px;
-      height: 24px;
+    .success-message {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      color: #d4edda;
     }
   </style>
 </head>
 <body>
-  <div class="overlay">
-    <button class="music-button" onclick="toggleMusic()" title="Toggle music">
-      <img id="music-icon" src="https://img.icons8.com/ios-filled/50/000000/speaker.png" alt="Music Toggle">
-    </button>
+  <h1>You're Invited!</h1>
+  <p>We are excited to celebrate our special day with you.<br>
+     Please let us know if you will attend.</p>
 
-    <div class="invitation-photo">
-      <div class="invitation-text">
-        <h2>Artur & Meri's Wedding</h2>
-        <p>Join us in celebrating our special day!<br>
-        12 July 2025, Grand Palace Hall, Yerevan</p>
-      </div>
-    </div>
+  <div class="form-container">
+    <form id="rsvp-form">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required>
 
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfGov65ffdPKcmZd5FukhGCtTAdqMQuQUTBaUDuKcjKhCa0ZA/viewform?embedded=true">Loading…</iframe>
+      <label for="attendance">Will you attend?</label>
+      <select id="attendance" name="attendance" required>
+        <option value="">Select an option</option>
+        <option value="I will attend">✅ I will attend</option>
+        <option value="I will not attend">❌ I will not attend</option>
+        <option value="I will attend with a partner">💑 I will attend with a partner</option>
+      </select>
+
+      <button type="submit">Send RSVP</button>
+      <div class="success-message" id="success-msg"></div>
+    </form>
   </div>
 
-  <audio id="wedding-music" loop autoplay>
-    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-
   <script>
-    const audio = document.getElementById('wedding-music');
-    const icon = document.getElementById('music-icon');
+    const form = document.getElementById('rsvp-form');
+    const successMsg = document.getElementById('success-msg');
 
-    function toggleMusic() {
-      if (audio.paused) {
-        audio.play();
-        icon.src = "https://img.icons8.com/ios-filled/50/000000/speaker.png";
-      } else {
-        audio.pause();
-        icon.src = "https://img.icons8.com/ios-filled/50/000000/mute.png";
-      }
-    }
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      fetch('https://script.google.com/macros/s/AKfycbzsB99hnc52fWhJ-zCtVUdGkIQvAPrW8bXEG6Rnm1GnSwoVn1eBb5RTGL2f1Vbmc9UjXg/exec', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: form.name.value,
+          attendance: form.attendance.value
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        successMsg.textContent = "✅ Thank you! Your RSVP has been received.";
+        form.reset();
+      })
+      .catch(error => {
+        successMsg.textContent = "❌ Something went wrong. Please try again later.";
+      });
+    });
   </script>
 </body>
 </html>
