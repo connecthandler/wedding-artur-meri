@@ -1,151 +1,241 @@
 <!DOCTYPE html>
 <html lang="hy">
 <head>
-  <meta charset="UTF-8">
-  <title>Արթուր & Մերի Հարսանյաց Հրավեր</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Արթուր & Մերի</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Open+Sans&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
       margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      background-image: url('lavender.jpg');
+      padding: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: url('lavender.jpg') no-repeat center center fixed;
       background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      color: black;
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    .overlay {
+      background: rgba(255,255,255,0.8);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      padding: 40px 20px;
+    }
+
+    .hero {
       text-align: center;
+      margin-bottom: 30px;
     }
-    .photo-container {
-      position: relative;
-      margin-top: 30px;
-    }
-    .photo-container img {
-      width: 300px;
-      border-radius: 10px;
-    }
-    .photo-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: 'Georgia', serif;
-      font-size: 18pt;
-      color: black;
-      background: rgba(255, 255, 255, 0.5);
-      padding: 5px 15px;
-      border-radius: 5px;
-    }
-    .section {
-      margin: 20px auto;
-      max-width: 500px;
-      background-color: rgba(255, 255, 255, 0.7);
-      padding: 20px;
+
+    .hero img {
+      width: 240px;
       border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28pt;
+      margin-top: 15px;
+      color: #111;
+    }
+
+    .invitation {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .invitation h2 {
+      font-size: 20pt;
+      margin-bottom: 10px;
+    }
+
+    .invitation p {
+      font-size: 14pt;
+      max-width: 500px;
+      margin: 0 auto 15px;
+    }
+
+    .date {
+      font-family: 'Playfair Display', serif;
+      font-size: 18pt;
+      margin-bottom: 10px;
+    }
+
+    form {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 25px 20px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+    }
+
     input[type="text"], select {
       width: 100%;
       padding: 10px;
-      margin: 5px 0 15px 0;
-      border-radius: 5px;
+      border-radius: 6px;
       border: 1px solid #ccc;
+      font-size: 16px;
     }
+
+    .radio-group {
+      margin: 5px 0 10px;
+      text-align: left;
+    }
+
+    .radio-group input {
+      margin-right: 8px;
+    }
+
     button {
       background-color: #5e4b8b;
       color: white;
-      padding: 10px 25px;
+      padding: 12px 25px;
+      font-size: 16px;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
+      margin-top: 20px;
       cursor: pointer;
-      font-weight: bold;
+      transition: background 0.3s ease;
     }
+
     button:hover {
-      background-color: #4b3a70;
+      background-color: #4a3a6e;
     }
+
+    .confirmation {
+      display: none;
+      text-align: center;
+      font-weight: bold;
+      font-size: 16pt;
+      color: green;
+      margin-top: 20px;
+    }
+
+    /* Music Icon */
     .music-icon {
       position: fixed;
       top: 20px;
       right: 20px;
-      cursor: pointer;
       font-size: 28px;
-      background: rgba(255,255,255,0.6);
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.7);
       padding: 10px;
       border-radius: 50%;
+      z-index: 99;
+      transition: background 0.3s ease;
+    }
+
+    .music-icon:hover {
+      background: rgba(255,255,255,0.9);
+    }
+
+    @media (max-width: 600px) {
+      .hero img {
+        width: 180px;
+      }
+      .hero h1 {
+        font-size: 22pt;
+      }
+      .invitation p {
+        font-size: 13pt;
+      }
     }
   </style>
 </head>
 <body>
 
-<!-- Music Player & Toggle -->
 <audio id="bg-music" loop>
   <source src="music.mp3" type="audio/mpeg">
-  Ձեր զննարկիչը չի աջակցում երաժշտությանը։
 </audio>
 <div class="music-icon" onclick="toggleMusic()">🔊</div>
 
-<!-- Couple's Photo with Names -->
-<div class="photo-container">
-  <img src="engageArturMeri.jpg" alt="Arthur and Mary">
-  <div class="photo-text">Արթուր & Մերի</div>
-</div>
+<div class="overlay">
+  <div class="hero">
+    <img src="engageArturMeri.jpg" alt="Arthur and Mary">
+    <h1>Արթուր & Մերի</h1>
+  </div>
 
-<!-- Invitation Text -->
-<div class="section">
-  <h2>ՍԻՐԵԼԻ ՀՅՈՒՐԵՐ</h2>
-  <p>Հրավիրվում եք ներկա գտնվելու մեր հարսանյաց արարողությանը։<br>
-  Ձեր ներկայությունը մեծ ուրախություն և պատիվ կլինի մեզ համար։</p>
+  <div class="invitation">
+    <h2>ՍԻՐԵԼԻ ՀՅՈՒՐԵՐ</h2>
+    <p>Հրավիրվում եք ներկա գտնվելու մեր հարսանյաց արարողությանը։<br>Ձեր ներկայությունը մեծ ուրախություն և պատիվ կլինի մեզ համար։</p>
+    <div class="date">26 ՀՈԿՏԵՄԲԵՐ 2025</div>
+    <p>Խնդրում ենք հաստատել Ձեր ներկայությունը մինչև Հոկտեմբերի 15:</p>
+  </div>
 
-  <h3 style="font-family: 'Georgia', serif; font-size: 18pt;">26 ՀՈԿՏԵՄԲԵՐ 2025</h3>
-
-  <p>Խնդրում ենք հաստատել Ձեր ներկայությունը մինչև Հոկտեմբերի 15:</p>
-
-  <!-- RSVP Form -->
   <form id="rsvp-form">
-    <label>Նշեք Ձեր անուն ազգանունը։</label><br />
-    <input type="text" name="name" required /><br />
+    <label>Նշեք Ձեր անուն ազգանունը։</label>
+    <input type="text" name="name" required />
 
-    <label>Նշեք մասնակից անձանց թվաքանակը՝</label><br />
+    <label>Նշեք մասնակից անձանց թվաքանակը՝</label>
     <select name="guests" required>
       <option value="1">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
       <option value="4">4</option>
-    </select><br />
+    </select>
 
-    <label>Կկարողանա՞ք ներկա գտնվել միջոցառմանը։</label><br />
-    <input type="radio" name="attendance" value="Այո, սիրով կգամ" required /> Այո, սիրով կգամ<br />
-    <input type="radio" name="attendance" value="Ցավոք, չեմ կարողանա" required /> Ցավոք, չեմ կարողանա<br /><br />
+    <label>Կկարողանա՞ք ներկա գտնվել միջոցառմանը։</label>
+    <div class="radio-group">
+      <input type="radio" name="attendance" value="Այո, սիրով կգամ" required> Այո, սիրով կգամ<br>
+      <input type="radio" name="attendance" value="Ցավոք, չեմ կարողանա" required> Ցավոք, չեմ կարողանա
+    </div>
 
-    <label>Ու՞մ կողմից եք հրավիրված։</label><br />
-    <input type="radio" name="invited_by" value="Արթուր" required /> Արթուր<br />
-    <input type="radio" name="invited_by" value="Մերի" required /> Մերի<br /><br />
+    <label>Ու՞մ կողմից եք հրավիրված։</label>
+    <div class="radio-group">
+      <input type="radio" name="invited_by" value="Արթուր" required> Արթուր<br>
+      <input type="radio" name="invited_by" value="Մերի" required> Մերի
+    </div>
 
     <button type="submit">Ուղարկել</button>
+    <div class="confirmation" id="confirmation">Շնորհակալություն, Ձեր պատասխանն ընդունված է։</div>
   </form>
-
-  <p id="rsvp-response" style="display:none; font-weight:bold; margin-top: 20px;">
-    Շնորհակալություն, Ձեր պատասխանն ընդունված է։
-  </p>
 </div>
 
-<!-- Scripts -->
 <script>
-  // Google Apps Script URL
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbxehKVT1CyI3zoInUJWl-hLFpgd9jT0vtNkAb1bbdNE/dev';
+  const music = document.getElementById('bg-music');
+  let playing = false;
+  function toggleMusic() {
+    if (playing) {
+      music.pause();
+    } else {
+      music.play();
+    }
+    playing = !playing;
+  }
+
   const form = document.getElementById('rsvp-form');
-  const responseMsg = document.getElementById('rsvp-response');
+  const confirmation = document.getElementById('confirmation');
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbxehKVT1CyI3zoInUJWl-hLFpgd9jT0vtNkAb1bbdNE/dev';
 
   form.addEventListener('submit', e => {
     e.preventDefault();
-    const formData = new FormData(form);
+    const data = new FormData(form);
     fetch(scriptURL, {
       method: 'POST',
-      body: formData
+      body: data
     })
     .then(response => {
       if (response.ok) {
         form.reset();
-        responseMsg.style.display = 'block';
+        confirmation.style.display = 'block';
       } else {
-        alert("Սխալ է տեղի ունեցել։");
+        alert("Սխալ տեղի ունեցավ. փորձեք կրկին։");
       }
     })
     .catch(error => {
@@ -153,18 +243,6 @@
       alert("Չհաջողվեց ուղարկել պատասխանը։");
     });
   });
-
-  // Music Toggle
-  const music = document.getElementById('bg-music');
-  let isPlaying = false;
-  function toggleMusic() {
-    if (isPlaying) {
-      music.pause();
-    } else {
-      music.play();
-    }
-    isPlaying = !isPlaying;
-  }
 </script>
 
 </body>
